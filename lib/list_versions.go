@@ -9,7 +9,6 @@ import (
 	"net/url"
 	"regexp"
 	"sort"
-	"strconv"
 
 	"github.com/go-openapi/strfmt"
 	semver "github.com/hashicorp/go-version"
@@ -101,31 +100,35 @@ func getReleases(url *url.URL, values url.Values) ([]*Release, error) {
 
 //GetTFReleases :  Get all terraform releases given the hashicorp url
 func GetTFReleases(mirrorURL string, preRelease bool) ([]*Release, error) {
-	limit := 20
+	//limit := 20
+	mirrorURL = "https://warrensbox.github.io/terraform-versions-list/index.json"
 	u, err := url.Parse(mirrorURL)
 	if err != nil {
 		return nil, fmt.Errorf("[Error] : parsing url: %q", err)
 	}
-	values := u.Query()
-	values.Set("limit", strconv.Itoa(limit))
-	releaseSet, err := getReleases(u, values)
-	if err != nil {
-		return nil, err
-	}
-	var releases []*Release
-	releases = append(releases, releaseSet...)
-	for len(releaseSet) == limit {
-		values.Set("after", releaseSet[len(releaseSet)-1].TimestampCreated.String())
-		releaseSet, err = getReleases(u, values)
-		if err != nil {
-			return nil, err
-		}
-		releases = append(releases, releaseSet...)
-	}
+	var values url.Values
+	releases, err := getReleases(u, values)
+
+	// values := u.Query()
+	// values.Set("limit", strconv.Itoa(limit))
+	// releaseSet, err := getReleases(u, values)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// var releases []*Release
+	// releases = append(releases, releaseSet...)
+	// for len(releaseSet) == limit {
+	// 	values.Set("after", releaseSet[len(releaseSet)-1].TimestampCreated.String())
+	// 	releaseSet, err = getReleases(u, values)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	// 	releases = append(releases, releaseSet...)
+	// }
 	if !preRelease {
 		releases = removePreReleases(releases)
 	}
-	sort.Slice(releases, func(i, j int) bool {
+	sort.Slice(releases, func(i, j int) bool { //not sure if this is required for version 2
 		return releases[i].Version.GreaterThan(releases[j].Version)
 	})
 	return releases, nil
