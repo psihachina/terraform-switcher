@@ -195,3 +195,11 @@ func TestValidVersionFormat(t *testing.T) {
 	}
 
 }
+
+func BenchmarkGetTFReleases(b *testing.B) {
+
+	// run the Fib function b.N times
+	for n := 0; n < b.N; n++ {
+		lib.GetTFReleases("https://api.releases.hashicorp.com/v1/releases/terraform", false)
+	}
+}
