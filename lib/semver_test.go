@@ -3,7 +3,7 @@ package lib_test
 import (
 	"testing"
 
-	"github.com/warrensbox/terraform-switcher/lib"
+	"github.com/psihachina/terraform-switcher/lib"
 )
 
 var versionsRaw = []string{

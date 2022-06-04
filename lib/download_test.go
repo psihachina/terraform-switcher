@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/warrensbox/terraform-switcher/lib"
+	"github.com/psihachina/terraform-switcher/lib"
 )
 
 // TestDownloadFromURL_FileNameMatch : Check expected filename exist when downloaded

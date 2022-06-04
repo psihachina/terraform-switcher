@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/warrensbox/terraform-switcher/lib"
+	"github.com/psihachina/terraform-switcher/lib"
 )
 
 const (

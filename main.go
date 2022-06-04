@@ -34,7 +34,7 @@ import (
 	"github.com/pborman/getopt"
 	"github.com/spf13/viper"
 
-	lib "github.com/warrensbox/terraform-switcher/lib"
+	lib "github.com/psihachina/terraform-switcher/lib"
 )
 
 const (
